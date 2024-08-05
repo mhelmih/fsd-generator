@@ -1,0 +1,31 @@
+{
+  "swName": "BCAS Modul Deposito",
+  "moduleName": "Registrasi Deposito",
+  "clientLogoPath": "/images/logo-bcas.png",
+  "docNumber": "FSD-BCAS-DEPOSITO-01",
+  "docVersion": "1.0.0",
+  "docLatestUpdateDate": "11/07/2024",
+  "daftarPerubahanCol": [
+    "Versi",
+    "Tanggal",
+    "Direview oleh",
+    "Disetujui oleh",
+    "Ringkasan Perubahan"
+  ],
+  "daftarPerubahanData": [
+    {
+      "kolom1": "1.0.0",
+      "kolom2": "28/06/2024",
+      "kolom3": "Muhammad Helmi Hibatullah",
+      "kolom4": "Rendi Resmawandi",
+      "kolom5": "Perilisan pertama."
+    },
+    {
+      "kolom1": "1.1.0",
+      "kolom2": "11/07/2024",
+      "kolom3": "Muhammad Helmi Hibatullah",
+      "kolom4": "Rendi Resmawandi",
+      "kolom5": "<ol><li>Menambahkan arsitektur sistem, karakteristik pengguna, dan dependensi</li><li>Menambahkan Functional Specification</li><li>Menambahkan Process Step Description</li><li>Memperbarui UI dan field</li></ol>"
+    }
+  ]
+}
