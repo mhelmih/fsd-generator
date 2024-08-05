@@ -1,6 +1,6 @@
 const { Document } = require("docx");
 const { styles, numbering } = require("./config");
-const { coverPage } = require("./sections");
+const { coverPage, daftarPerubahanPage } = require("./sections");
 
 const generateDocx = (data) => {
   return new Document({
@@ -11,6 +11,7 @@ const generateDocx = (data) => {
     },
     sections: [
       coverPage(data),
+      daftarPerubahanPage(data),
     ],
   });
 };

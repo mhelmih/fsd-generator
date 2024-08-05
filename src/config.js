@@ -63,7 +63,7 @@ const generalStyles = {
 };
 
 /**
- * Document styling configuration 
+ * Document styling configuration
  */
 const styles = {
   paragraphStyles: [
@@ -74,6 +74,20 @@ const styles = {
       next: "Normal",
       run: generalStyles.normal.run,
       paragraph: generalStyles.normal.paragraph,
+      quickFormat: true,
+    },
+    {
+      id: "Table",
+      name: "Table",
+      basedOn: "Normal",
+      next: "Normal",
+      run: { ...generalStyles.normal.run, size: 20 },
+      paragraph: {
+        alignment: AlignmentType.LEFT,
+        spacing: {
+          line: 240,
+        },
+      },
       quickFormat: true,
     },
     {
@@ -176,7 +190,7 @@ const styles = {
 };
 
 /**
- * Document numbering configuration 
+ * Document numbering configuration
  */
 const numbering = {
   config: [

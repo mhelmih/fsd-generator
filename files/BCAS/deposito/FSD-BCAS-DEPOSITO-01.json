@@ -25,7 +25,17 @@
       "kolom2": "11/07/2024",
       "kolom3": "Muhammad Helmi Hibatullah",
       "kolom4": "Rendi Resmawandi",
-      "kolom5": "<ol><li>Menambahkan arsitektur sistem, karakteristik pengguna, dan dependensi</li><li>Menambahkan Functional Specification</li><li>Menambahkan Process Step Description</li><li>Memperbarui UI dan field</li></ol>"
+      "kolom5": "<ol><li><p>Menambahkan arsitektur sistem, karakteristik pengguna, dan dependensi</p></li><li><p>Menambahkan Functional Specification</p></li><li><p>Menambahkan Process Step Description</p></li><li><p>Memperbarui UI dan field</p></li></ol>"
     }
-  ]
+  ],
+  "tujuanPenulisan": "Dokumen ini ditulis dengan tujuan untuk merancang kebutuhan secara lebih spesifik mengenai Aplikasi BCAS Modul Deposito. Pengembang aplikasi akan menggunakan dokumen ini sebagai acuan teknis implementasi pada tahap berikutnya.",
+  "lingkup": "<p>Branch Delivery System (BDS) merupakan sistem informasi berbasis komputer yang diterapkan oleh Bank BCA Syariah untuk memproses data transaksi finansial atau non finansial, dimana fitur layanan tersebut diberikan kepada nasabah individu dan badan usaha. Untuk mendukung hal tersebut, maka dibutuhkan suatu aplikasi yang dapat memberikan pengalaman perbankan yang terbaik bagi para nasabah dan juga sistem yang mendukung kinerja operasional bank secara komprehensif dalam melayani nasabah, hal ini dibutuhkan agar dapat mendorong pertumbuhan nasabah serta pertumbuhan bisnis BCAS secara tidak langsung. BDS memiliki empat modul besar sebagai berikut.</p><p><ol><li><p>CIF</p></li><li><p>Funding</p></li><li><p>Financing</p></li><li><p>Corporate</p></li></ol></p>Modul deposito sendiri termasuk ke dalam modul Funding.<p></p>",
+  "definisiIstilah": {
+    "desc": "Berikut adalah definisi dari istilah atau singkatan yang digunakan dalam dokumen ini.",
+    "data": [
+      {
+        "term": "BCAS"
+      }
+    ]
+  }
 }

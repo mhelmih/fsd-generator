@@ -20,6 +20,7 @@ const {
 const { generalStyles } = require("./config");
 const path = require("path");
 const fs = require("fs");
+const { createTable } = require("./utils");
 
 /**
  * Cover Page Section
@@ -362,119 +363,7 @@ const daftarPerubahanPage = (data) => ({
       alignment: AlignmentType.CENTER,
     }),
     new Paragraph(""),
-    new Table({
-      alignment: AlignmentType.CENTER,
-      width: {
-        size: 100,
-        type: WidthType.PERCENTAGE,
-      },
-      rows: [
-        new TableRow({
-          children: [
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [
-                    new TextRun({
-                      text: "Versi",
-                      bold: true,
-                    }),
-                  ],
-                  alignment: AlignmentType.CENTER,
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [
-                    new TextRun({
-                      text: "Disetujui oleh",
-                      bold: true,
-                    }),
-                  ],
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [
-                    new TextRun({
-                      text: "Tanggal",
-                      bold: true,
-                    }),
-                  ],
-                  alignment: AlignmentType.CENTER,
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [
-                    new TextRun({
-                      text: "Ringkasan Perubahan",
-                      bold: true,
-                    }),
-                  ],
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-          ],
-        }),
-        new TableRow({
-          children: [
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun(`${data.docVersion}`)],
-                  alignment: AlignmentType.CENTER,
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun("")],
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun(`${todayString}`)],
-                  alignment: AlignmentType.CENTER,
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun("Perilisan pertama.")],
-                  spacing: { line: 240 },
-                }),
-              ],
-              margins: generalStyles.cellMargin,
-            }),
-          ],
-        }),
-      ],
-    }),
+    createTable(data.daftarPerubahanCol, data.daftarPerubahanData),
   ],
 });
 

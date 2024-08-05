@@ -1,6 +1,6 @@
-const { Packer } = require("docx");
 const fs = require("fs");
 const path = require("path");
+const { Packer } = require("docx");
 const { generateDocx } = require("./src/docxGenerator");
 
 const projectFolderPath = path.join(__dirname, "files/BCAS/deposito");
