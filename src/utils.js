@@ -225,7 +225,7 @@ function htmlToParagraphs(
 
   for (let i = 0; i < html.childNodes.length; i++) {
     const el = html.childNodes[i];
-    const resetNumbering = el.getAttribute("data-reset-numbering") === "true";
+    // const resetNumbering = el.getAttribute("data-reset-numbering") === "true";
 
     switch (el.nodeName.toLowerCase()) {
       case "p":
@@ -238,7 +238,7 @@ function htmlToParagraphs(
                 ? {
                     reference: numberingReference,
                     level,
-                    instance: resetNumbering ? Math.random() : undefined,
+                    // instance: resetNumbering ? Math.random() : undefined,
                   }
                 : undefined,
             style,

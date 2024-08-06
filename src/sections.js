@@ -365,7 +365,6 @@ const daftarPerubahanPage = (data) => ({
   children: [
     createHeading("Daftar Perubahan", 0, false),
     new Paragraph(""),
-    // delete first element of daftarPerubahan paragraph below
     ...createTable(data.daftarPerubahanCol, data.daftarPerubahanData, "Daftar Perubahan").slice(1),
   ],
 });

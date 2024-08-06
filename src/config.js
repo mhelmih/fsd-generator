@@ -158,7 +158,7 @@ const styles = {
     },
     {
       id: "TOC1",
-      name: "Daftar Isi Bold",
+      name: "TOC1",
       basedOn: "Normal",
       next: "Normal",
       quickFormat: true,
@@ -171,7 +171,7 @@ const styles = {
     },
     {
       id: "TOC2",
-      name: "Daftar Isi",
+      name: "TOC2",
       basedOn: "Normal",
       next: "Normal",
       quickFormat: true,
