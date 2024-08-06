@@ -16,14 +16,20 @@ const {
   WidthType,
   Packer,
   SectionType,
+  BorderStyle,
 } = require("docx");
 const { generalStyles } = require("./config");
 const path = require("path");
 const fs = require("fs");
-const { createTable } = require("./utils");
+const {
+  createTable,
+  createHeading,
+  htmlToParagraphs,
+  stringToHtml,
+} = require("./utils");
 
 /**
- * Cover Page Section
+ * Halaman Cover
  */
 const coverPage = (data) => ({
   properties: {
@@ -250,6 +256,9 @@ const coverPage = (data) => ({
   ],
 });
 
+/**
+ * Halaman Daftar Perubahan
+ */
 const daftarPerubahanPage = (data) => ({
   footers: {
     default: new Footer({
@@ -353,19 +362,142 @@ const daftarPerubahanPage = (data) => ({
     type: SectionType.NEXT_PAGE,
   },
   children: [
-    new Paragraph({
-      children: [
-        new TextRun({
-          text: "Daftar Perubahan",
-        }),
-      ],
-      heading: HeadingLevel.HEADING_1,
-      alignment: AlignmentType.CENTER,
-    }),
+    createHeading("Daftar Perubahan", 0, false),
     new Paragraph(""),
     createTable(data.daftarPerubahanCol, data.daftarPerubahanData),
   ],
 });
 
+/**
+ * Halaman Daftar Isi
+ */
+const daftarIsiPage = {
+  properties: {
+    type: "nextPage",
+  },
+  children: [
+    createHeading("Daftar Isi", 0, false),
+    new Paragraph(""),
+    new TableOfContents("Daftar Isi", {
+      hyperlink: true,
+      headingStyleRange: "1-4",
+      stylesWithLevels: [
+        new StyleLevel("DaftarIsi", 1),
+        new StyleLevel("DaftarIsi", 2),
+        new StyleLevel("DaftarIsi", 3),
+        new StyleLevel("DaftarIsi", 4),
+      ],
+    }),
+  ],
+};
 
-module.exports = { coverPage, daftarPerubahanPage };
+/**
+ * Halaman Pendahuluan
+ */
+const pendahuluanPage = (data) => ({
+  properties: {
+    type: "nextPage",
+  },
+  children: [
+    createHeading("Pendahuluan", 0, true),
+    createHeading("Tujuan Penulisan Dokumen", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.tujuanPenulisan)),
+    new Paragraph(""),
+    createHeading("Lingkup", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.lingkup)),
+    new Paragraph(""),
+    createHeading("Definisi dan Istilah", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.definisiIstilah.desc)),
+    new Table({
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+      margins: generalStyles.cellMargin,
+      rows: data.definisiIstilah.data.map((row) => {
+        return new TableRow({
+          children: [
+            new TableCell({
+              children: [
+                new Paragraph({
+                  children: [new TextRun(row.term)],
+                  spacing: { line: 240 },
+                }),
+              ],
+            }),
+            new TableCell({
+              children: [
+                new Paragraph({
+                  children: [new TextRun(row.definition)],
+                  spacing: { line: 240 },
+                }),
+              ],
+            }),
+          ],
+        });
+      }),
+      borders: {
+        top: { style: BorderStyle.NONE },
+        bottom: { style: BorderStyle.NONE },
+        left: { style: BorderStyle.NONE },
+        right: { style: BorderStyle.NONE },
+        insideHorizontal: { style: BorderStyle.NONE },
+        insideVertical: { style: BorderStyle.NONE },
+      },
+    }),
+    new Paragraph(""),
+    createHeading("Aturan Penamaan dan Penomoran", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.penamaanPenomoran.desc)),
+    new Table({
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+      margins: generalStyles.cellMargin,
+      rows: data.penamaanPenomoran.data.map((row) => {
+        return new TableRow({
+          children: [
+            new TableCell({
+              children: [
+                new Paragraph({
+                  children: [new TextRun(row.numbering)],
+                  spacing: { line: 240 },
+                }),
+              ],
+            }),
+            new TableCell({
+              children: [
+                new Paragraph({
+                  children: [new TextRun(row.rule)],
+                  spacing: { line: 240 },
+                }),
+              ],
+            }),
+          ],
+        });
+      }),
+      borders: {
+        top: { style: BorderStyle.NONE },
+        bottom: { style: BorderStyle.NONE },
+        left: { style: BorderStyle.NONE },
+        right: { style: BorderStyle.NONE },
+        insideHorizontal: { style: BorderStyle.NONE },
+        insideVertical: { style: BorderStyle.NONE },
+      },
+    }),
+    new Paragraph(""),
+    createHeading("Referensi", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.referensi)),
+    new Paragraph(""),
+    createHeading("Ikhtisar Dokumen", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.ikhtisarDokumen)),
+    new Paragraph(""),
+  ],
+});
+
+module.exports = {
+  coverPage,
+  daftarPerubahanPage,
+  daftarIsiPage,
+  pendahuluanPage,
+};

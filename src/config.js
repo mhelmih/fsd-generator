@@ -309,7 +309,7 @@ const numbering = {
         {
           level: 0,
           format: LevelFormat.BULLET,
-          text: "•",
+          text: "-",
           alignment: AlignmentType.START,
           style: {
             paragraph: {
@@ -320,6 +320,17 @@ const numbering = {
         {
           level: 1,
           format: LevelFormat.BULLET,
+          text: "•",
+          alignment: AlignmentType.START,
+          style: {
+            paragraph: {
+              indent: { left: 720, hanging: 360 },
+            },
+          },
+        },
+        {
+          level: 2,
+          format: LevelFormat.BULLET,
           text: "◦",
           alignment: AlignmentType.START,
           style: {
@@ -329,7 +340,7 @@ const numbering = {
           },
         },
         {
-          level: 2,
+          level: 3,
           format: LevelFormat.BULLET,
           text: "▪",
           alignment: AlignmentType.START,

@@ -21,6 +21,45 @@ const {
 const { generalStyles } = require("./config");
 const { JSDOM } = require("jsdom");
 
+function createHeading(text, level = 0, isNumbered = true) {
+  let heading, alignment;
+  switch (level) {
+    case 0:
+      heading = HeadingLevel.HEADING_1;
+      if (isNumbered) {
+        alignment = AlignmentType.LEFT;
+      } else {
+        alignment = AlignmentType.CENTER;
+      }
+      break;
+    case 1:
+      heading = HeadingLevel.HEADING_2;
+      alignment = AlignmentType.LEFT;
+      break;
+    case 2:
+      heading = HeadingLevel.HEADING_3;
+      alignment = AlignmentType.LEFT;
+      break;
+    case 3:
+      heading = HeadingLevel.HEADING_4;
+      alignment = AlignmentType.LEFT;
+      break;
+  }
+
+  return new Paragraph({
+    children: [
+      new TextRun({
+        text: text,
+      }),
+    ],
+    heading,
+    alignment,
+    numbering: isNumbered
+      ? { reference: "heading-numbering", level }
+      : undefined,
+  });
+}
+
 function createTable(columns, data) {
   return new Table({
     width: {
@@ -96,7 +135,7 @@ function stringToHtml(html) {
   if (html && !html.startsWith("<")) {
     html = `<p>${html}</p>`;
   }
-  const dom = new JSDOM(`<!DOCTYPE html><body>${html}</body>`);
+  const dom = new JSDOM(`${html}`);
   return dom.window.document.body;
 }
 
@@ -111,6 +150,8 @@ function htmlToParagraphs(
 
   for (let i = 0; i < html.childNodes.length; i++) {
     const el = html.childNodes[i];
+    const resetNumbering = el.getAttribute("data-reset-numbering") === "true";
+    
     switch (el.nodeName.toLowerCase()) {
       case "p":
         const runs = parseNode(el);
@@ -119,7 +160,11 @@ function htmlToParagraphs(
             children: runs,
             numbering:
               numberingReference && i === 0
-                ? { reference: numberingReference, level }
+                ? {
+                    reference: numberingReference,
+                    level,
+                    instance: resetNumbering ? Math.random() : undefined,
+                  }
                 : undefined,
             style,
           })
@@ -183,19 +228,16 @@ function htmlToParagraphs(
       //   break;
       case "ol":
         paragraphs = paragraphs.concat(
-          parseList(el, "basic-ordered-numbering", level + 1)
+          parseList(el, "basic-ordered-numbering", level + 1, isTable)
         );
         break;
       case "ul":
         paragraphs = paragraphs.concat(
-          parseList(el, "basic-unordered-numbering", level + 1)
+          parseList(el, "basic-unordered-numbering", level + 1, isTable)
         );
         break;
     }
   }
-  // if (html.nodeName.toLowerCase() !== "li") {
-  //   paragraphs.push(new Paragraph(""));
-  // }
 
   return paragraphs;
 }
@@ -270,7 +312,7 @@ function parseNodeWithFormatting(node, formatting) {
   return runs;
 }
 
-function parseList(node, numberingReference, level = 0) {
+function parseList(node, numberingReference, level = 0, isTable = false) {
   let paragraphs = [];
 
   for (let i = 0; i < node.childNodes.length; i++) {
@@ -278,7 +320,8 @@ function parseList(node, numberingReference, level = 0) {
     const childParagraphs = htmlToParagraphs(
       listItem,
       numberingReference,
-      level
+      level,
+      isTable
     );
     paragraphs = paragraphs.concat(childParagraphs);
   }
@@ -287,6 +330,7 @@ function parseList(node, numberingReference, level = 0) {
 }
 
 module.exports = {
+  createHeading,
   createTable,
   createTableRowHeader,
   createTableRowsData,
