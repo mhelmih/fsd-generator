@@ -5,6 +5,7 @@ const {
   HeadingLevel,
   ImageRun,
   LevelFormat,
+  maxWidthImageRun,
   PageNumber,
   Paragraph,
   StyleLevel,
@@ -20,6 +21,8 @@ const {
 } = require("docx");
 const { generalStyles } = require("./config");
 const { JSDOM } = require("jsdom");
+const fs = require("fs");
+const sizeOf = require("image-size");
 
 function createHeading(text, level = 0, isNumbered = true) {
   let heading, alignment;
@@ -60,15 +63,35 @@ function createHeading(text, level = 0, isNumbered = true) {
   });
 }
 
-function createTable(columns, data) {
-  return new Table({
-    width: {
-      size: 100,
-      type: WidthType.PERCENTAGE,
-    },
-    margins: generalStyles.cellMargin,
-    rows: [createTableRowHeader(columns), ...createTableRowsData(data)],
-  });
+function createTable(columns, data, tableAlt) {
+  let item = [];
+
+  item.push(
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: tableAlt,
+        }),
+      ],
+      heading: HeadingLevel.HEADING_5,
+      numbering: {
+        reference: "table-numbering",
+        level: 0,
+      },
+    })
+  );
+  item.push(
+    new Table({
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+      margins: generalStyles.cellMargin,
+      rows: [createTableRowHeader(columns), ...createTableRowsData(data)],
+    })
+  );
+
+  return item;
 }
 
 function createTableRowHeader(data) {
@@ -131,6 +154,58 @@ function createTableCellsData(data) {
   return cells;
 }
 
+function createImageParagraph(imgPath, imgAlt) {
+  let item = [];
+
+  const imageBuffer = fs.readFileSync(imgPath);
+  const dimensions = sizeOf(imageBuffer);
+
+  // Assuming a standard page width of 8.5 inches (21.59 cm)
+  // and default margins of 1 inch on each side
+  const maxWidth = 6.5 * 72; // 6.5 inches in points (72 points per inch)
+
+  let width = dimensions.width;
+  let height = dimensions.height;
+
+  if (width > maxWidth) {
+    const ratio = maxWidth / width;
+    width = maxWidth;
+    height = height * ratio;
+  }
+
+  item.push(
+    new Paragraph({
+      children: [
+        new ImageRun({
+          data: imageBuffer,
+          transformation: {
+            width,
+            height,
+          },
+        }),
+      ],
+      alignment: AlignmentType.CENTER,
+    })
+  );
+  item.push(
+    new Paragraph({
+      children: [
+        new TextRun({
+          text: imgAlt,
+        }),
+      ],
+      heading: HeadingLevel.HEADING_6,
+      numbering: {
+        reference: "figure-numbering",
+        level: 0,
+      },
+    })
+  );
+  item.push(new Paragraph(""));
+
+  return item;
+}
+
 function stringToHtml(html) {
   if (html && !html.startsWith("<")) {
     html = `<p>${html}</p>`;
@@ -151,7 +226,7 @@ function htmlToParagraphs(
   for (let i = 0; i < html.childNodes.length; i++) {
     const el = html.childNodes[i];
     const resetNumbering = el.getAttribute("data-reset-numbering") === "true";
-    
+
     switch (el.nodeName.toLowerCase()) {
       case "p":
         const runs = parseNode(el);
@@ -334,6 +409,7 @@ module.exports = {
   createTable,
   createTableRowHeader,
   createTableRowsData,
+  createImageParagraph,
   stringToHtml,
   htmlToParagraphs,
 };

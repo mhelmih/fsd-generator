@@ -157,7 +157,20 @@ const styles = {
       quickFormat: true,
     },
     {
-      id: "DaftarIsi",
+      id: "TOC1",
+      name: "Daftar Isi Bold",
+      basedOn: "Normal",
+      next: "Normal",
+      quickFormat: true,
+      run: { ...generalStyles.normal.run, bold: true },
+      paragraph: {
+        spacing: {
+          line: 240,
+        },
+      },
+    },
+    {
+      id: "TOC2",
       name: "Daftar Isi",
       basedOn: "Normal",
       next: "Normal",

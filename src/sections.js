@@ -26,6 +26,7 @@ const {
   createHeading,
   htmlToParagraphs,
   stringToHtml,
+  createImageParagraph,
 } = require("./utils");
 
 /**
@@ -364,7 +365,8 @@ const daftarPerubahanPage = (data) => ({
   children: [
     createHeading("Daftar Perubahan", 0, false),
     new Paragraph(""),
-    createTable(data.daftarPerubahanCol, data.daftarPerubahanData),
+    // delete first element of daftarPerubahan paragraph below
+    ...createTable(data.daftarPerubahanCol, data.daftarPerubahanData, "Daftar Perubahan").slice(1),
   ],
 });
 
@@ -382,11 +384,47 @@ const daftarIsiPage = {
       hyperlink: true,
       headingStyleRange: "1-4",
       stylesWithLevels: [
-        new StyleLevel("DaftarIsi", 1),
-        new StyleLevel("DaftarIsi", 2),
-        new StyleLevel("DaftarIsi", 3),
-        new StyleLevel("DaftarIsi", 4),
+        new StyleLevel("TOC1", 1),
+        new StyleLevel("TOC2", 2),
+        new StyleLevel("TOC2", 3),
+        new StyleLevel("TOC2", 4),
       ],
+    }),
+  ],
+};
+
+/**
+ * Halaman Daftar Tabel
+ */
+const daftarTabelPage = {
+  properties: {
+    type: "nextPage",
+  },
+  children: [
+    createHeading("Daftar Tabel", 0, false),
+    new Paragraph(""),
+    new TableOfContents("Daftar Gambar", {
+      hyperlink: true,
+      headingStyleRange: "5-5",
+      stylesWithLevels: [new StyleLevel("DaftarTabelGambar", 1)],
+    }),
+  ],
+};
+
+/**
+ * Halaman Daftar Gambar
+ */
+const daftarGambarPage = {
+  properties: {
+    type: "nextPage",
+  },
+  children: [
+    createHeading("Daftar Gambar", 0, false),
+    new Paragraph(""),
+    new TableOfContents("Daftar Gambar", {
+      hyperlink: true,
+      headingStyleRange: "6-6",
+      stylesWithLevels: [new StyleLevel("DaftarTabelGambar", 1)],
     }),
   ],
 };
@@ -495,9 +533,57 @@ const pendahuluanPage = (data) => ({
   ],
 });
 
+/**
+ * Halaman Ringkasan Sistem
+ */
+const ringkasanSistemPage = (data) => ({
+  properties: {
+    type: "nextPage",
+  },
+  children: [
+    createHeading("Ringkasan Sistem", 0, true),
+    createHeading("Arsitektur Sistem", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.arsitekturSistem.desc)),
+    ...createImageParagraph(
+      path.join(data.projectFolderPath, data.arsitekturSistem.imgPath),
+      data.arsitekturSistem.imgAlt
+    ),
+    createHeading("Karakteristik Pengguna", 1, true),
+    ...createTable(data.karakteristikPenggunaCol, data.karakteristikPenggunaData, "Karakteristik Pengguna"),
+    new Paragraph(""),
+    createHeading("Dependensi", 1, true),
+    ...htmlToParagraphs(stringToHtml(data.dependensi)),
+    new Paragraph(""),
+  ],
+});
+
+/**
+ * Halaman Deskripsi Kebutuhan
+ */
+const deskripsiKebutuhanPage = (data) => ({
+  properties: {
+    type: "nextPage",
+  },
+  children: [
+    createHeading("Deskripsi Kebutuhan", 0, true),
+    createHeading("Functional Specification", 1, true),
+    ...createTable(data.functionalSpecCol, data.functionalSpecData, "Functional Specification"),
+    new Paragraph(""),
+    createHeading("Transaction Flow", 1, true),
+    ...createImageParagraph(
+      path.join(data.projectFolderPath, data.transactionFlow.imgPath),
+      data.transactionFlow.imgAlt
+    ),
+  ],
+});
+
 module.exports = {
   coverPage,
   daftarPerubahanPage,
   daftarIsiPage,
+  daftarTabelPage,
+  daftarGambarPage,
   pendahuluanPage,
+  ringkasanSistemPage,
+  deskripsiKebutuhanPage,
 };

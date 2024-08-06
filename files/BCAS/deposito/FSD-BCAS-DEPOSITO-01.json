@@ -69,5 +69,46 @@
     ]
   },
   "referensi": "<p>Referensi yang digunakan dalam dokumen ini adalah sebagai berikut.</p><ol data-reset-numbering=\"true\"><li><p>Referensi 1</p></li><li><p>Referensi 2</p></li><li><p>Referensi 3</p></li></ol>",
-  "ikhtisarDokumen": "<p>Secara keseluruhan, dokumen ini terdiri dari dua bab dengan perincian setiap babnya sebagai berikut.<ul><li><p>Bab 1 Pendahuluan berisi tentang tujuan penulisan dokumen, lingkup produk, definisi, istilah dan singkatan, aturan penomoran, referensi, serta ikhtisar dari dokumen ini.</p></li><li><p>Bab 2 Ringkasan Sistem berisi mengenai arsitektur sistem, karakteristik pengguna, dan dependensi sistem.</p></li><li><p>Bab 3 Deskripsi Kebutuhan berisi tentang semua perancangan kebutuhan yang lebih mendetail.</p></li></ul></p>"
+  "ikhtisarDokumen": "<p>Secara keseluruhan, dokumen ini terdiri dari dua bab dengan perincian setiap babnya sebagai berikut.<ul><li><p>Bab 1 Pendahuluan berisi tentang tujuan penulisan dokumen, lingkup produk, definisi, istilah dan singkatan, aturan penomoran, referensi, serta ikhtisar dari dokumen ini.</p></li><li><p>Bab 2 Ringkasan Sistem berisi mengenai arsitektur sistem, karakteristik pengguna, dan dependensi sistem.</p></li><li><p>Bab 3 Deskripsi Kebutuhan berisi tentang semua perancangan kebutuhan yang lebih mendetail.</p></li></ul></p>",
+  "arsitekturSistem": {
+    "desc": "Berikut adalah diagram arsitektur New BDS.",
+    "imgPath": "/images/arsitektur-sistem.png",
+    "imgAlt": "Diagram Arsitektur Sistem"
+  },
+  "karakteristikPenggunaCol": [
+    "Kategori Pengguna",
+    "Deskripsi",
+    "Kewenangan"
+  ],
+  "karakteristikPenggunaData": [
+    {
+      "kolom1": "Customer Service",
+      "kolom2": "Pegawai Bank BCA Syariah yang bertugas melayani nasabah dalam proses registrasi deposito.",
+      "kolom3": "Melakukan pencarian dan pemilihan data nasabah, memilih produk deposito, dan melakukan validasi data wajib sebelum pendaftaran."
+    },
+    {
+      "kolom1": "Supervisor",
+      "kolom2": "Pegawai Bank BCA Syariah yang bertugas mengawasi dan mengotorisasi pendaftaran deposito oleh Customer Service.",
+      "kolom3": "Mengotorisasi registrasi deposito yang dilakukan oleh Customer Service, termasuk pengecekan dan persetujuan akhir data nasabah dan produk deposito"
+    }
+  ],
+  "dependensi": "<p>BDS membutuhkan integrasi ke beberapa aplikasi internal existing BCAS sebagai berikut.</p><ul><li><p>API untuk rekening TM</p></li></ul>",
+  "functionalSpecCol": [
+    "No",
+    "Requirement",
+    "Description",
+    "Remarks"
+  ],
+  "functionalSpecData": [
+    {
+      "kolom1": "1",
+      "kolom2": "Registrasi Deposito",
+      "kolom3": "Sistem harus dapat memungkinkan pengguna melakukan registrasi deposito",
+      "kolom4": "Deposito terdaftar pada sistem"
+    }
+  ],
+  "transactionFlow": {
+    "imgPath": "/images/transaction-flow.png",
+    "imgAlt": "Process Flow Registrasi Deposito"
+  }
 }
