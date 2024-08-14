@@ -22,11 +22,12 @@ const { generalStyles } = require("./config");
 const path = require("path");
 const fs = require("fs");
 const {
-  createTable,
+  createVerticalTable,
   createHeading,
   htmlToParagraphs,
   stringToHtml,
   createImageParagraph,
+  createHorizontalTable,
 } = require("./utils");
 
 /**
@@ -365,7 +366,7 @@ const daftarPerubahanPage = (data) => ({
   children: [
     createHeading("Daftar Perubahan", 0, false),
     new Paragraph(""),
-    ...createTable(data.daftarPerubahanCol, data.daftarPerubahanData, "Daftar Perubahan").slice(1),
+    ...createVerticalTable(data.daftarPerubahanCol, data.daftarPerubahanData, "Daftar Perubahan").slice(1),
   ],
 });
 
@@ -445,86 +446,11 @@ const pendahuluanPage = (data) => ({
     new Paragraph(""),
     createHeading("Definisi dan Istilah", 1, true),
     ...htmlToParagraphs(stringToHtml(data.definisiIstilah.desc)),
-    new Table({
-      width: {
-        size: 100,
-        type: WidthType.PERCENTAGE,
-      },
-      margins: generalStyles.cellMargin,
-      rows: data.definisiIstilah.data.map((row) => {
-        return new TableRow({
-          children: [
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun(row.term)],
-                  spacing: { line: 240 },
-                }),
-              ],
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun(row.definition)],
-                  spacing: { line: 240 },
-                }),
-              ],
-            }),
-          ],
-        });
-      }),
-      borders: {
-        top: { style: BorderStyle.NONE },
-        bottom: { style: BorderStyle.NONE },
-        left: { style: BorderStyle.NONE },
-        right: { style: BorderStyle.NONE },
-        insideHorizontal: { style: BorderStyle.NONE },
-        insideVertical: { style: BorderStyle.NONE },
-      },
-    }),
+    ...createHorizontalTable(data.definisiIstilah.data, true),
     new Paragraph(""),
     createHeading("Aturan Penamaan dan Penomoran", 1, true),
     ...htmlToParagraphs(stringToHtml(data.penamaanPenomoran.desc)),
-    new Table({
-      width: {
-        size: 100,
-        type: WidthType.PERCENTAGE,
-      },
-      margins: generalStyles.cellMargin,
-      rows: data.penamaanPenomoran.data.map((row) => {
-        return new TableRow({
-          children: [
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun(row.numbering)],
-                  spacing: { line: 240 },
-                }),
-              ],
-            }),
-            new TableCell({
-              children: [
-                new Paragraph({
-                  children: [new TextRun(row.rule)],
-                  spacing: { line: 240 },
-                }),
-              ],
-            }),
-          ],
-        });
-      }),
-      borders: {
-        top: { style: BorderStyle.NONE },
-        bottom: { style: BorderStyle.NONE },
-        left: { style: BorderStyle.NONE },
-        right: { style: BorderStyle.NONE },
-        insideHorizontal: { style: BorderStyle.NONE },
-        insideVertical: { style: BorderStyle.NONE },
-      },
-    }),
-    new Paragraph(""),
-    createHeading("Referensi", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.referensi)),
+    ...createHorizontalTable(data.penamaanPenomoran.data, true),
     new Paragraph(""),
     createHeading("Ikhtisar Dokumen", 1, true),
     ...htmlToParagraphs(stringToHtml(data.ikhtisarDokumen)),
@@ -548,10 +474,7 @@ const ringkasanSistemPage = (data) => ({
       data.arsitekturSistem.imgAlt
     ),
     createHeading("Karakteristik Pengguna", 1, true),
-    ...createTable(data.karakteristikPenggunaCol, data.karakteristikPenggunaData, "Karakteristik Pengguna"),
-    new Paragraph(""),
-    createHeading("Dependensi", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.dependensi)),
+    ...createVerticalTable(data.karakteristikPenggunaCol, data.karakteristikPenggunaData, "Karakteristik Pengguna"),
     new Paragraph(""),
   ],
 });
@@ -566,13 +489,29 @@ const deskripsiKebutuhanPage = (data) => ({
   children: [
     createHeading("Deskripsi Kebutuhan", 0, true),
     createHeading("Functional Specification", 1, true),
-    ...createTable(data.functionalSpecCol, data.functionalSpecData, "Functional Specification"),
+    new Paragraph(data.functionalSpec.desc),
+    ...createHorizontalTable(data.functionalSpec.data, false, data.functionalSpec.alt),
     new Paragraph(""),
     createHeading("Transaction Flow", 1, true),
+    new Paragraph(data.transactionFlow.desc),
     ...createImageParagraph(
       path.join(data.projectFolderPath, data.transactionFlow.imgPath),
       data.transactionFlow.imgAlt
     ),
+    createHeading("Skenario", 1, true),
+    new Paragraph(data.skenario.desc),
+    ...createHorizontalTable(data.skenario.data, false, data.skenario.alt),
+    new Paragraph(""),
+    createHeading("UI Design", 1, true),
+    new Paragraph(data.ui.desc),
+    ...createImageParagraph(
+      path.join(data.projectFolderPath, data.ui.imgPath),
+      data.ui.imgAlt
+    ),
+    createHeading("Field Description", 1, true),
+    new Paragraph(data.fieldDesc.desc),
+    ...createVerticalTable(data.fieldDesc.col, data.fieldDesc.data, "Field Description"),
+    new Paragraph(""),
   ],
 });
 

@@ -1,5 +1,6 @@
 const {
   AlignmentType,
+  BorderStyle,
   Document,
   Footer,
   HeadingLevel,
@@ -63,7 +64,7 @@ function createHeading(text, level = 0, isNumbered = true) {
   });
 }
 
-function createTable(columns, data, tableAlt) {
+function createVerticalTable(columns, data, tableAlt) {
   let item = [];
 
   item.push(
@@ -152,6 +153,70 @@ function createTableCellsData(data) {
     );
   }
   return cells;
+}
+
+function createHorizontalTable(data, isPlain = false, tableAlt = "") {
+  let item = [];
+
+  if (!isPlain) {
+    item.push(
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: tableAlt,
+          }),
+        ],
+        heading: HeadingLevel.HEADING_5,
+        numbering: {
+          reference: "table-numbering",
+          level: 0,
+        },
+      })
+    );
+  }
+  item.push(
+    new Table({
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+      margins: generalStyles.cellMargin,
+      rows: data.map((row) => {
+        return new TableRow({
+          children: [
+            new TableCell({
+              children: [
+                ...htmlToParagraphs(stringToHtml(row.header), null, -1, true),
+              ],
+              shading: isPlain
+                ? undefined
+                : {
+                    type: ShadingType.CLEAR,
+                    fill: "#d9d9d9",
+                  },
+            }),
+            new TableCell({
+              children: [
+                ...htmlToParagraphs(stringToHtml(row.content), null, -1, true),
+              ],
+            }),
+          ],
+        });
+      }),
+      borders: isPlain
+        ? {
+            top: { style: BorderStyle.NONE },
+            bottom: { style: BorderStyle.NONE },
+            left: { style: BorderStyle.NONE },
+            right: { style: BorderStyle.NONE },
+            insideHorizontal: { style: BorderStyle.NONE },
+            insideVertical: { style: BorderStyle.NONE },
+          }
+        : undefined,
+    })
+  );
+
+  return item;
 }
 
 function createImageParagraph(imgPath, imgAlt) {
@@ -406,9 +471,10 @@ function parseList(node, numberingReference, level = 0, isTable = false) {
 
 module.exports = {
   createHeading,
-  createTable,
+  createVerticalTable,
   createTableRowHeader,
   createTableRowsData,
+  createHorizontalTable,
   createImageParagraph,
   stringToHtml,
   htmlToParagraphs,

@@ -1,0 +1,377 @@
+{
+  "swName": "BCA SYARIAH MODIL TRANSAKSI",
+  "moduleName": "SETOR TUNAI",
+  "clientLogoPath": "/images/logo-bcas.png",
+  "docNumber": "FSD-BCAS-TRANSAKSI-02",
+  "docVersion": "1.0.0",
+  "docLatestUpdateDate": "11/07/2024",
+  "daftarPerubahanCol": [
+    "Versi",
+    "Tanggal",
+    "Direview oleh",
+    "Disetujui oleh",
+    "Ringkasan Perubahan"
+  ],
+  "daftarPerubahanData": [
+    {
+      "kolom1": "1.0.0",
+      "kolom2": "11/07/2024",
+      "kolom3": "Muhammad Helmi Hibatullah",
+      "kolom4": "Rendi Resmawandi",
+      "kolom5": "Perilisan pertama."
+    }
+  ],
+  "tujuanPenulisan": "Dokumen ini ditulis dengan tujuan untuk merancang kebutuhan secara lebih spesifik mengenai Aplikasi BCAS Modul Transaksi. Pengembang aplikasi akan menggunakan dokumen ini sebagai acuan teknis implementasi pada tahap berikutnya.",
+  "lingkup": "<p><i>Branch Delivery System</i> (BDS) merupakan sistem informasi berbasis komputer yang diterapkan oleh Bank BCA Syariah untuk memproses data transaksi finansial atau nonfinansial, dimana fitur layanan tersebut diberikan kepada nasabah individu dan badan usaha. Untuk mendukung hal tersebut, maka dibutuhkan suatu aplikasi yang dapat memberikan pengalaman perbankan yang terbaik bagi para nasabah dan juga sistem yang mendukung kinerja operasional bank secara komprehensif dalam melayani nasabah, hal ini dibutuhkan agar dapat mendorong pertumbuhan nasabah serta pertumbuhan bisnis BCAS secara tidak langsung.</p>",
+  "definisiIstilah": {
+    "desc": "Berikut adalah definisi dari istilah atau singkatan yang digunakan dalam dokumen ini.",
+    "data": [
+      {
+        "header": "BCAS",
+        "content": "BCAS atau BCA Syariah adalah salah satu lembaga perbankan syariah di Indonesia sebagai salah satu klien dari PT Ihsan Solusi Informatika."
+      },
+      {
+        "header": "FSD",
+        "content": "Functional Specification Document atau Dokumen Spesifikasi Fungsional adalah dokumen yang berisi spesifikasi teknis dari suatu sistem yang akan dibangun."
+      },
+      {
+        "header": "BDS",
+        "content": "Branch Delivery System"
+      },
+      {
+        "header": "TM",
+        "content": "Tought Machine"
+      },
+      {
+        "header": "Setor Tunai",
+        "content": "Proses ini memungkinkan nasabah untuk menyimpan uang tunai ke dalam rekening bank tanpa harus menggunakan kartu ATM."
+      }
+    ]
+  },
+  "penamaanPenomoran": {
+    "desc": "Tidak ada aturan penomoran dan penamaan yang dipakai dalam dokumen ini.",
+    "data": [
+      {
+        "header": "FX.Y.Z (Contoh)",
+        "content": "Contoh penommoran"
+      }
+    ]
+  },
+  "ikhtisarDokumen": "<p>Secara keseluruhan, dokumen ini terdiri dari dua bab dengan perincian setiap babnya sebagai berikut.</p><ul><li><p>Bab 1 Pendahuluan berisi tentang tujuan penulisan dokumen, lingkup produk, definisi, istilah dan singkatan, aturan penomoran, referensi, serta ikhtisar dari dokumen ini.</p></li><li><p>Bab 2 Ringkasan Sistem berisi mengenai arsitektur sistem, karakteristik pengguna, dan dependensi sistem.</p></li><li><p>Bab 3 Deskripsi Kebutuhan berisi tentang semua perancangan kebutuhan yang lebih mendetail.</p></li></ul>",
+  "arsitekturSistem": {
+    "desc": "Berikut adalah diagram arsitektur New BDS.",
+    "imgPath": "/images/arsitektur-sistem.png",
+    "imgAlt": "Diagram Arsitektur Sistem",
+    "imgDesc": "<p>Keterangan :</p><p>Arsitektur Sistem yang ditunjukkan pada gambar di atas merupakan rangkaian alur proses yang dilakukan oleh Environment yang telah dikembangkan sebagai media komunikasi antar sistem dan antar channel. Tujuannya adalah untuk memungkinkan konektivitas antara New BDS, Legacy CBS, dan Environment Thought Machine.</p>"
+  },
+  "karakteristikPenggunaCol": ["Kategori Pengguna", "Deskripsi", "Kewenangan"],
+  "karakteristikPenggunaData": [
+    {
+      "kolom1": "Customer Service",
+      "kolom2": "Pengguna yang melakukan input administratif / transaksi back office.",
+      "kolom3": "Melakukan pencarian, pendaftaran, ubah data, dan penutupan data nasabah dan rekening."
+    },
+    {
+      "kolom1": "Teller",
+      "kolom2": "Pengguna yang melakukan input transaksi.",
+      "kolom3": "Melakukan pencarian dan pemilihan data nasabah, memilih produk, dan melakukan validasi data wajib serta melakukan input transaksi keuangan."
+    },
+    {
+      "kolom1": "Supervisor",
+      "kolom2": "Pengguna yang mengotorisasi.",
+      "kolom3": "Mengotorisasi transaksi yang dilakukan oleh Teller, Customer Service dan Back Office."
+    },
+    {
+      "kolom1": "Back Office",
+      "kolom2": "Mendukung operasional bank dengan menangani tugas administratif dan operasional tanpa interaksi langsung dengan nasabah.",
+      "kolom3": "Melakukan verifikasi dan validasi data nasabah yang telah diotorisasi oleh Supervisor, memastikan kesesuaian dan kelengkapan dokumen."
+    }
+  ],
+  "functionalSpec": {
+    "desc": "Berikut adalah deskripsi menu setor tunai.",
+    "data": [
+      {
+        "header": "Requirement",
+        "content": "Setor Tunai"
+      },
+      {
+        "header": "Description",
+        "content": "User memastikan keamanan dan keakurantan transaksi setor tunai"
+      },
+      {
+        "header": "Precondition",
+        "content": "User telah Login"
+      },
+      {
+        "header": "Remarks",
+        "content": "Data hanya dapat diotorisasi pada hari yang sama. Otorisasi dilakukan pada Terminal User Approval."
+      }
+    ],
+    "alt": "Deskripsi Menu Setor Tunai"
+  },
+  "transactionFlow": {
+    "desc": "Berikut adalah diagram alur proses menu setor tunai.",
+    "imgPath": "/images/transaction-flow.png",
+    "imgAlt": "Process Flow Setor Tunai"
+  },
+  "skenario": {
+    "desc": "Berikut adalah skenario menu setor tunai.",
+    "data": [
+      {
+        "header": "Nama Seknario",
+        "content": "Registrasi Setor Tunai"
+      },
+      {
+        "header": "Aktor",
+        "content": "Customer Service, Teller, Supervisor, Back Office"
+      },
+      {
+        "header": "Deskripsi",
+        "content": "User memastikan keamanan dan keakuratan transaksi"
+      },
+      {
+        "header": "Pre-kondisi",
+        "content": "User telah Login ke halaman new BDS"
+      },
+      {
+        "header": "Alur",
+        "content": "<ol><li><p>User melakukan login ke dalam sistem BDS.</p></li><li><p>User mengakses menu transaksi yang tersedia dalam sistem.</p></li><li><p>User selanjutnya mengakses menu transaksi khusus untuk nasabah.</p></li><li><p>User memilih opsi untuk melakukan setoran tunai.</p></li><li><p>Sistem melakukan pemanggilan data rekening melalui API dari Core System ISI untuk memverifikasi dan mengambil data rekening yang akan digunakan dalam transaksi setoran tunai.</p></li><li><p>User memasukkan data yang diperlukan untuk setor tunai seperti jumlah uang, nomor rekening, dan informasi lain yang relevan.</p></li><li><p>Jika input tidak valid: Pengguna akan diminta untuk mengoreksi atau melengkapi inputan.</p></li><li><p>Jika input valid: Proses dilanjutkan.</p></li><li><p>Data yang sudah divalidasi dan dinyatakan valid disimpan dalam sistem.</p></li><li><p>Jika Ya (Rekening TM): Jika rekening terkait dengan TM (Treasury Management atau Manajemen Kas), sistem melakukan post transaksi jurnal melalui API yang tersedia dalam TM Service.</p></li><li><p>Jika Tidak (Bukan Rekening TM): Jika rekening tidak terkait dengan TM, sistem melakukan post transaksi jurnal melalui API di Core System ISI.</p></li><li><p>Proses berakhir setelah semua data berhasil diproses dan disimpan.</p></li></ol>"
+      },
+      {
+        "header": "Error Handling",
+        "content": "Sistem menampilkan pesan error sesuai dengan tabel validasi"
+      },
+      {
+        "header": "Post-kondisi",
+        "content": "-"
+      }
+    ],
+    "alt": "Skenario Registrasi Setor Tunai"
+  },
+  "ui": {
+    "desc": "Berikut adalah tampilan antarmuka halaman setor tunai.",
+    "imgPath": "/images/ui-setor-tunai.png",
+    "imgAlt": "UI Form Setor Tunai"
+  },
+  "fieldDesc": {
+    "desc": "Berikut adalah tabel field description menu setor tunai.",
+    "col": [
+      "No",
+      "Field Name",
+      "Description",
+      "Data Type",
+      "Length",
+      "Mandatory (Y/N)",
+      "Data Source"
+    ],
+    "data": [
+      {
+        "kolom1": "1",
+        "kolom2": "Nomor Rekening",
+        "kolom3": "Nomor Rekening Nasabah",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Manual Input"
+      },
+      {
+        "kolom1": "2",
+        "kolom2": "No Register Passbook",
+        "kolom3": "Nomor Register",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "3",
+        "kolom2": "Nama Rekening",
+        "kolom3": "Nama Pemilik Rekening",
+        "kolom4": "Alphanumeric",
+        "kolom5": "100",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "4",
+        "kolom2": "Cabang Rekening",
+        "kolom3": "Kode Cabang",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "5",
+        "kolom2": "Valuta Rekening",
+        "kolom3": "Mata Uang",
+        "kolom4": "Alphanumeric",
+        "kolom5": "10",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "6",
+        "kolom2": "Produk",
+        "kolom3": "Kode Produk",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "7",
+        "kolom2": "Nomor Referensi",
+        "kolom3": "Nomor referensi rekening",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "8",
+        "kolom2": "Nominal",
+        "kolom3": "Jumlah nominal setor tunai",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Manual Input"
+      },
+      {
+        "kolom1": "9",
+        "kolom2": "Biaya",
+        "kolom3": "Biaya setor tunai",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Manual Input"
+      },
+      {
+        "kolom1": "10",
+        "kolom2": "Fisik Tunai",
+        "kolom3": "Ya/Tidak",
+        "kolom4": "Alphanumeric",
+        "kolom5": "1",
+        "kolom6": "Y",
+        "kolom7": "Dropdown List"
+      },
+      {
+        "kolom1": "11",
+        "kolom2": "Nominal Tunai Fisik",
+        "kolom3": "Nominal tunai fisik",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "12",
+        "kolom2": "Sumber Biaya",
+        "kolom3": "Sumber biaya setor tunai",
+        "kolom4": "Alphanumeric",
+        "kolom5": "50",
+        "kolom6": "Y",
+        "kolom7": "Dropdown List"
+      },
+      {
+        "kolom1": "13",
+        "kolom2": "Kode Valuta Transaksi",
+        "kolom3": "Valuta",
+        "kolom4": "Alphanumeric",
+        "kolom5": "10",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "14",
+        "kolom2": "Sumber Dana",
+        "kolom3": "Sumber Dana",
+        "kolom4": "Alphanumeric",
+        "kolom5": "100",
+        "kolom6": "Y",
+        "kolom7": "Dropdown List"
+      },
+      {
+        "kolom1": "15",
+        "kolom2": "Kode Tujuan Transaksi",
+        "kolom3": "Kode Tujuan Transaksi",
+        "kolom4": "Alphanumeric",
+        "kolom5": "50",
+        "kolom6": "Y",
+        "kolom7": "Dropdown List"
+      },
+      {
+        "kolom1": "16",
+        "kolom2": "Keterangan",
+        "kolom3": "Keterangan sumber dana",
+        "kolom4": "Alphanumeric",
+        "kolom5": "100",
+        "kolom6": "Y",
+        "kolom7": "Manual Input"
+      },
+      {
+        "kolom1": "17",
+        "kolom2": "Jenis Data Penyetor",
+        "kolom3": "Pemilik Rek/Nasabah/WIC/Hak Akses",
+        "kolom4": "Alphanumeric",
+        "kolom5": "10",
+        "kolom6": "Y",
+        "kolom7": "Dropdown List"
+      },
+      {
+        "kolom1": "18",
+        "kolom2": "Nama",
+        "kolom3": "Nama Penyetor",
+        "kolom4": "Alphanumeric",
+        "kolom5": "100",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "19",
+        "kolom2": "Jenis Identitas",
+        "kolom3": "Jenis Identitas Penyetor",
+        "kolom4": "Alphanumeric",
+        "kolom5": "20",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "20",
+        "kolom2": "Nomor Telepon",
+        "kolom3": "Nomor Telepon Penyetor",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "21",
+        "kolom2": "Alamat",
+        "kolom3": "Alamat Penyetor",
+        "kolom4": "Alphanumeric",
+        "kolom5": "100",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "22",
+        "kolom2": "Nomor Identitas",
+        "kolom3": "Nomor Identitas Penyetor",
+        "kolom4": "Numeric",
+        "kolom5": "",
+        "kolom6": "Y",
+        "kolom7": "Auto Generated"
+      },
+      {
+        "kolom1": "23",
+        "kolom2": "Nasabah/WIC",
+        "kolom3": "Nasabah/WIC",
+        "kolom4": "Alphanumeric",
+        "kolom5": "5",
+        "kolom6": "Y",
+        "kolom7": "Dropdown List"
+      }
+    ]
+  }
+}
