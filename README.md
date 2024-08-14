@@ -53,7 +53,7 @@ npm install
 files
 └── CLIENT_NAME
     └── MODULE_NAME
-        └── /images
+        └── images
         └── FSD-CLIENT-MODULE-01.json
 ```
 
@@ -63,7 +63,7 @@ example:
 files
 └── BCAS
     └── transaksi
-        └── /images
+        └── images
             └── logo-bcas.png
             └── arsitektur-sistem.png
             └── transaction-flow.png
