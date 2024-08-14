@@ -57,6 +57,20 @@ files
         └── FSD-CLIENT-MODULE-01.json
 ```
 
+example:
+
+```bash
+files
+└── BCAS
+    └── transaksi
+        └── /images
+            └── logo-bcas.png
+            └── arsitektur-sistem.png
+            └── transaction-flow.png
+            └── ui-setor-tunai.png 
+        └── FSD-BCAS-TRANSAKSI-02.json
+```
+
 2. Create a JSON file with the following structure:
 
 ```json
@@ -76,6 +90,12 @@ files
 
 ```bash
 node index.js /CLIENT_NAME/MODULE_NAME/FSD-CLIENT-MODULE-01.json
+```
+
+example:
+
+```bash
+node index.js /BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json
 ```
 
 4. The script will generate a docx file in the same directory as the JSON file.
