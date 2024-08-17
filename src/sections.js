@@ -1,10 +1,11 @@
+const path = require('path');
+const fs = require('fs');
+
 const {
   AlignmentType,
-  Document,
   Footer,
   HeadingLevel,
   ImageRun,
-  LevelFormat,
   PageNumber,
   Paragraph,
   StyleLevel,
@@ -14,13 +15,10 @@ const {
   TableRow,
   TextRun,
   WidthType,
-  Packer,
   SectionType,
-  BorderStyle,
-} = require("docx");
-const { generalStyles } = require("./config");
-const path = require("path");
-const fs = require("fs");
+} = require('docx');
+
+const { generalStyles } = require('./config');
 const {
   createVerticalTable,
   createHeading,
@@ -28,7 +26,7 @@ const {
   stringToHtml,
   createImageParagraph,
   createHorizontalTable,
-} = require("./utils");
+} = require('./utils');
 
 /**
  * Halaman Cover
@@ -45,7 +43,7 @@ const coverPage = (data) => ({
     new Paragraph({
       children: [
         new TextRun({
-          text: "FUNCTIONAL SPECIFICATION DOCUMENT",
+          text: 'FUNCTIONAL SPECIFICATION DOCUMENT',
         }),
         new TextRun({
           break: 2,
@@ -73,7 +71,7 @@ const coverPage = (data) => ({
       children: [
         new ImageRun({
           data: fs.readFileSync(
-            path.join(`${data.projectFolderPath}${data.clientLogoPath}`)
+            path.join(`${data.projectFolderPath}${data.clientLogoPath}`),
           ),
           transformation: {
             width: 330,
@@ -93,7 +91,7 @@ const coverPage = (data) => ({
     new Paragraph({
       children: [
         new TextRun({
-          text: "Dipersiapkan oleh",
+          text: 'Dipersiapkan oleh',
           size: 28,
         }),
         new TextRun({
@@ -101,7 +99,7 @@ const coverPage = (data) => ({
         }),
         new ImageRun({
           data: fs.readFileSync(
-            path.join(__dirname, "../files/images/logo-isi.png")
+            path.join(__dirname, '../files/images/logo-isi.png'),
           ),
           transformation: {
             width: 345,
@@ -117,21 +115,21 @@ const coverPage = (data) => ({
     new Paragraph({
       children: [
         new TextRun({
-          text: "PT Ihsan Solusi Informatika",
+          text: 'PT Ihsan Solusi Informatika',
           size: 28,
         }),
         new TextRun({
           break: 1,
         }),
         new TextRun({
-          text: "Jl. PHH Mustofa No. 39",
+          text: 'Jl. PHH Mustofa No. 39',
           size: 28,
         }),
         new TextRun({
           break: 1,
         }),
         new TextRun({
-          text: "Ruko Surapati Core C-7 Bandung",
+          text: 'Ruko Surapati Core C-7 Bandung',
           size: 28,
         }),
         new TextRun({
@@ -146,12 +144,12 @@ const coverPage = (data) => ({
         new TableRow({
           children: [
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
                   children: [
                     new TextRun({
-                      text: "Nomor Dokumen",
+                      text: 'Nomor Dokumen',
                       bold: true,
                     }),
                   ],
@@ -163,12 +161,12 @@ const coverPage = (data) => ({
               margins: generalStyles.cellMargin,
             }),
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
                   children: [
                     new TextRun({
-                      text: "Halaman",
+                      text: 'Halaman',
                       bold: true,
                     }),
                   ],
@@ -183,7 +181,7 @@ const coverPage = (data) => ({
         new TableRow({
           children: [
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
                   children: [
@@ -200,10 +198,10 @@ const coverPage = (data) => ({
               margins: generalStyles.cellMargin,
             }),
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
-                  children: [new TextRun("1/<#>")],
+                  children: [new TextRun('1/<#>')],
                   alignment: AlignmentType.CENTER,
                   spacing: { line: 240 },
                 }),
@@ -214,12 +212,12 @@ const coverPage = (data) => ({
         new TableRow({
           children: [
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
                   children: [
                     new TextRun({
-                      text: "Versi",
+                      text: 'Versi',
                       bold: true,
                     }),
                   ],
@@ -230,7 +228,7 @@ const coverPage = (data) => ({
               margins: generalStyles.cellMargin,
             }),
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
                   children: [new TextRun(`${data.docVersion}`)],
@@ -241,7 +239,7 @@ const coverPage = (data) => ({
               margins: generalStyles.cellMargin,
             }),
             new TableCell({
-              verticalAlign: "center",
+              verticalAlign: 'center',
               children: [
                 new Paragraph({
                   children: [new TextRun(`${data.docLatestUpdateDate}`)],
@@ -274,13 +272,13 @@ const daftarPerubahanPage = (data) => ({
             new TableRow({
               children: [
                 new TableCell({
-                  verticalAlign: "center",
+                  verticalAlign: 'center',
                   children: [
                     new Paragraph({
                       children: [
                         new ImageRun({
                           data: fs.readFileSync(
-                            path.join(__dirname, `../files/images/logo-isi.png`)
+                            path.join(__dirname, '../files/images/logo-isi.png'),
                           ),
                           transformation: {
                             width: 138,
@@ -294,7 +292,7 @@ const daftarPerubahanPage = (data) => ({
                   ],
                 }),
                 new TableCell({
-                  verticalAlign: "center",
+                  verticalAlign: 'center',
                   children: [
                     new Paragraph({
                       children: [
@@ -310,15 +308,15 @@ const daftarPerubahanPage = (data) => ({
                   ],
                 }),
                 new TableCell({
-                  verticalAlign: "center",
+                  verticalAlign: 'center',
                   children: [
                     new Paragraph({
                       children: [
                         new TextRun({
                           children: [
-                            "Halaman ",
+                            'Halaman ',
                             PageNumber.CURRENT,
-                            " / ",
+                            ' / ',
                             PageNumber.TOTAL_PAGES,
                           ],
                           bold: true,
@@ -336,12 +334,12 @@ const daftarPerubahanPage = (data) => ({
               children: [
                 new TableCell({
                   columnSpan: 3,
-                  verticalAlign: "center",
+                  verticalAlign: 'center',
                   children: [
                     new Paragraph({
                       children: [
                         new TextRun({
-                          text: "Template dokumen ini dan informasi yang dimilikinya adalah milik PT Ihsan Solusi Informatika dan bersifat rahasia. Dilarang mereproduksi dokumen ini tanpa diketahui oleh PT Ihsan Solusi Informatika.",
+                          text: 'Template dokumen ini dan informasi yang dimilikinya adalah milik PT Ihsan Solusi Informatika dan bersifat rahasia. Dilarang mereproduksi dokumen ini tanpa diketahui oleh PT Ihsan Solusi Informatika.',
                           size: 18,
                         }),
                       ],
@@ -364,9 +362,13 @@ const daftarPerubahanPage = (data) => ({
     type: SectionType.NEXT_PAGE,
   },
   children: [
-    createHeading("Daftar Perubahan", 0, false),
-    new Paragraph(""),
-    ...createVerticalTable(data.daftarPerubahanCol, data.daftarPerubahanData, "Daftar Perubahan").slice(1),
+    createHeading('Daftar Perubahan', 0, false),
+    new Paragraph(''),
+    ...createVerticalTable(
+      data.daftarPerubahanCol,
+      data.daftarPerubahanData,
+      'Daftar Perubahan',
+    ).slice(1),
   ],
 });
 
@@ -375,19 +377,19 @@ const daftarPerubahanPage = (data) => ({
  */
 const daftarIsiPage = {
   properties: {
-    type: "nextPage",
+    type: 'nextPage',
   },
   children: [
-    createHeading("Daftar Isi", 0, false),
-    new Paragraph(""),
-    new TableOfContents("Daftar Isi", {
+    createHeading('Daftar Isi', 0, false),
+    new Paragraph(''),
+    new TableOfContents('Daftar Isi', {
       hyperlink: true,
-      headingStyleRange: "1-4",
+      headingStyleRange: '1-4',
       stylesWithLevels: [
-        new StyleLevel("TOC1", 1),
-        new StyleLevel("TOC2", 2),
-        new StyleLevel("TOC2", 3),
-        new StyleLevel("TOC2", 4),
+        new StyleLevel('TOC1', 1),
+        new StyleLevel('TOC2', 2),
+        new StyleLevel('TOC2', 3),
+        new StyleLevel('TOC2', 4),
       ],
     }),
   ],
@@ -398,15 +400,15 @@ const daftarIsiPage = {
  */
 const daftarTabelPage = {
   properties: {
-    type: "nextPage",
+    type: 'nextPage',
   },
   children: [
-    createHeading("Daftar Tabel", 0, false),
-    new Paragraph(""),
-    new TableOfContents("Daftar Gambar", {
+    createHeading('Daftar Tabel', 0, false),
+    new Paragraph(''),
+    new TableOfContents('Daftar Gambar', {
       hyperlink: true,
-      headingStyleRange: "5-5",
-      stylesWithLevels: [new StyleLevel("DaftarTabelGambar", 1)],
+      headingStyleRange: '5-5',
+      stylesWithLevels: [new StyleLevel('DaftarTabelGambar', 1)],
     }),
   ],
 };
@@ -416,112 +418,136 @@ const daftarTabelPage = {
  */
 const daftarGambarPage = {
   properties: {
-    type: "nextPage",
+    type: 'nextPage',
   },
   children: [
-    createHeading("Daftar Gambar", 0, false),
-    new Paragraph(""),
-    new TableOfContents("Daftar Gambar", {
+    createHeading('Daftar Gambar', 0, false),
+    new Paragraph(''),
+    new TableOfContents('Daftar Gambar', {
       hyperlink: true,
-      headingStyleRange: "6-6",
-      stylesWithLevels: [new StyleLevel("DaftarTabelGambar", 1)],
+      headingStyleRange: '6-6',
+      stylesWithLevels: [new StyleLevel('DaftarTabelGambar', 1)],
     }),
   ],
 };
 
 /**
- * Halaman Pendahuluan
+ * Convert sections from JSON to docx format
+ *
+ * @param {Object} data - All data from the JSON file
+ * @param {Object} data.metadata - Metadata of the document
+ * @param {string} data.metadata.projectFolderPath - Path to the project folder
+ * @param {string} data.metadata.swName - Name of the software
+ * @param {string} data.metadata.moduleName - Name of the module
+ * @param {string} data.metadata.clientLogoPath - Path to the client logo
+ * @param {string} data.metadata.docNumber - Document number
+ * @param {string} data.metadata.docVersion - Document version
+ * @param {string} data.metadata.docLatestUpdateDate - Document latest update date
+ * @param {Array<string>} data.metadata.daftarPerubahanCol - Columns for the Daftar Perubahan table
+ * @param {Array<Object>} data.metadata.daftarPerubahanData - Data for the Daftar Perubahan table
+ * @param {Array<Object>} data.sections - Sections of the document
+ * @param {Object} data.sections.properties - Properties of the section
+ * @param {Array<Object>} data.sections.children - Children of the section
+ * @param {string} data.sections.children.type - Type of the child element (heading, paragraph, htable, vtable, image, spacing)
+ * @param {string} data.sections.children.content - Content of the child element
+ * @param {Object} data.sections.children.properties - Properties of the child element
+ * @returns {Array<Object>} - Sections in docx format
+ *
+ * @example
+ * const data = {
+ *  metadata: {
+ *   projectFolderPath: '/path/to/project/folder',
+ *   swName: 'Software Name',
+ *   moduleName: 'Module Name',
+ *   clientLogoPath: '/path/to/client/logo',
+ *   docNumber: 'Document Number',
+ *   docVersion: 'Document Version',
+ *   docLatestUpdateDate: 'Document Latest Update Date',
+ *   daftarPerubahanCol: ["Versi","Tanggal","Direview oleh","Disetujui oleh","Ringkasan Perubahan"],
+ *   daftarPerubahanData: [{"kolom1": "1.0.0","kolom2": "11/07/2024","kolom3": "Muhammad Helmi Hibatullah","kolom4": "Rendi Resmawandi","kolom5": "Perilisan pertama."}],
+ *  },
+ *  sections: [
+ *  {
+ *   properties: {type: "section"},
+ *   children: [
+ *    {type: "heading", content: "Judul", properties: {level: 1, isNumbered: false}},
+ *    {type: "paragraph", content: "Paragraf pertama."},
+ *    {type: "htable", content: {table: [{"header": "Header1", "data": "data1"}], caption: "Caption"}, properties: {isPlain: false}},
+ *    {type: "vtable", content: {header: ["Header1"], data: [{"kolom1":"data1"}], caption: "Caption"}},
+ *    {type: "image", content: {src: "/path/to/image", caption: "Caption"}},
+ *    {type: "spacing"}
+ *   ],
+ *  },
+ * ]};
+ *
+ * const sections = sectionConverter(data);
  */
-const pendahuluanPage = (data) => ({
-  properties: {
-    type: "nextPage",
-  },
-  children: [
-    createHeading("Pendahuluan", 0, true),
-    createHeading("Tujuan Penulisan Dokumen", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.tujuanPenulisan)),
-    new Paragraph(""),
-    createHeading("Lingkup", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.lingkup)),
-    new Paragraph(""),
-    createHeading("Definisi dan Istilah", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.definisiIstilah.desc)),
-    ...createHorizontalTable(data.definisiIstilah.data, true),
-    new Paragraph(""),
-    createHeading("Aturan Penamaan dan Penomoran", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.penamaanPenomoran.desc)),
-    ...createHorizontalTable(data.penamaanPenomoran.data, true),
-    new Paragraph(""),
-    createHeading("Ikhtisar Dokumen", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.ikhtisarDokumen)),
-    new Paragraph(""),
-  ],
-});
+const sectionConverter = (data) => {
+  const sections = [
+    coverPage(data.metadata),
+    daftarPerubahanPage(data.metadata),
+    daftarIsiPage,
+    daftarTabelPage,
+    daftarGambarPage,
+  ];
 
-/**
- * Halaman Ringkasan Sistem
- */
-const ringkasanSistemPage = (data) => ({
-  properties: {
-    type: "nextPage",
-  },
-  children: [
-    createHeading("Ringkasan Sistem", 0, true),
-    createHeading("Arsitektur Sistem", 1, true),
-    ...htmlToParagraphs(stringToHtml(data.arsitekturSistem.desc)),
-    ...createImageParagraph(
-      path.join(data.projectFolderPath, data.arsitekturSistem.imgPath),
-      data.arsitekturSistem.imgAlt
-    ),
-    createHeading("Karakteristik Pengguna", 1, true),
-    ...createVerticalTable(data.karakteristikPenggunaCol, data.karakteristikPenggunaData, "Karakteristik Pengguna"),
-    new Paragraph(""),
-  ],
-});
+  for (let i = 0; i < data.sections.length; i++) {
+    const item = data.sections[i];
+    const section = {
+      properties: {
+        type: item.properties.type,
+      },
+      children: [],
+    };
 
-/**
- * Halaman Deskripsi Kebutuhan
- */
-const deskripsiKebutuhanPage = (data) => ({
-  properties: {
-    type: "nextPage",
-  },
-  children: [
-    createHeading("Deskripsi Kebutuhan", 0, true),
-    createHeading("Functional Specification", 1, true),
-    new Paragraph(data.functionalSpec.desc),
-    ...createHorizontalTable(data.functionalSpec.data, false, data.functionalSpec.alt),
-    new Paragraph(""),
-    createHeading("Transaction Flow", 1, true),
-    new Paragraph(data.transactionFlow.desc),
-    ...createImageParagraph(
-      path.join(data.projectFolderPath, data.transactionFlow.imgPath),
-      data.transactionFlow.imgAlt
-    ),
-    createHeading("Skenario", 1, true),
-    new Paragraph(data.skenario.desc),
-    ...createHorizontalTable(data.skenario.data, false, data.skenario.alt),
-    new Paragraph(""),
-    createHeading("UI Design", 1, true),
-    new Paragraph(data.ui.desc),
-    ...createImageParagraph(
-      path.join(data.projectFolderPath, data.ui.imgPath),
-      data.ui.imgAlt
-    ),
-    createHeading("Field Description", 1, true),
-    new Paragraph(data.fieldDesc.desc),
-    ...createVerticalTable(data.fieldDesc.col, data.fieldDesc.data, "Field Description"),
-    new Paragraph(""),
-  ],
-});
+    for (let j = 0; j < item.children.length; j++) {
+      const child = item.children[j];
+
+      if (child.type === 'heading') {
+        section.children.push(
+          createHeading(
+            child.content,
+            child.properties.level,
+            child.properties.isNumbered,
+          ),
+        );
+      } else if (child.type === 'paragraph') {
+        section.children.push(...htmlToParagraphs(stringToHtml(child.content)));
+      } else if (child.type === 'htable') {
+        section.children.push(
+          ...createHorizontalTable(
+            child.content.table,
+            child.properties.isPlain,
+            child.content.caption,
+          ),
+        );
+      } else if (child.type === 'vtable') {
+        section.children.push(
+          ...createVerticalTable(
+            child.content.header,
+            child.content.data,
+            child.content.caption,
+          ),
+        );
+      } else if (child.type === 'image') {
+        section.children.push(
+          ...createImageParagraph(
+            data.metadata.projectFolderPath,
+            child.content.src,
+            child.content.caption,
+          ),
+        );
+      } else if (child.type === 'spacing') {
+        section.children.push(new Paragraph(''));
+      }
+    }
+
+    sections.push(section);
+  }
+
+  return sections;
+};
 
 module.exports = {
-  coverPage,
-  daftarPerubahanPage,
-  daftarIsiPage,
-  daftarTabelPage,
-  daftarGambarPage,
-  pendahuluanPage,
-  ringkasanSistemPage,
-  deskripsiKebutuhanPage,
+  sectionConverter,
 };
