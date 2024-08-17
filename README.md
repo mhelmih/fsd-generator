@@ -98,7 +98,7 @@ FSD Generator is a script that generates a Functional Specification Document (FS
   ]
 }
 ```
-*please refer to [/files/BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json]() for the complete structure
+*please refer to [/files/BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json](/files/BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json) for the complete structure
 
 The script will automatically generate a docx file with the following structure:
 
@@ -175,7 +175,7 @@ files
   "sections": []
 }
 ```
-*please refer to [/files/BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json]() for the complete structure
+*please refer to [/files/BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json](/files/BCAS/transaksi/FSD-BCAS-TRANSAKSI-02.json) for the complete structure
 
 Every section in the document should be defined in the `sections` array. Every section would be separated by a page break. Each object in the `sections` array should have the following structure:
 
