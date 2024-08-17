@@ -473,7 +473,7 @@ const daftarGambarPage = {
  *    {type: "heading", content: "Judul", properties: {level: 1, isNumbered: false}},
  *    {type: "paragraph", content: "Paragraf pertama."},
  *    {type: "htable", content: {table: [{"header": "Header1", "data": "data1"}], caption: "Caption"}, properties: {isPlain: false}},
- *    {type: "vtable", content: {header: ["Header1"], data: [["data1"]], caption: "Caption"}},
+ *    {type: "vtable", content: {header: ["Header1"], data: [{"kolom1":"data1"}], caption: "Caption"}},
  *    {type: "image", content: {src: "/path/to/image", caption: "Caption"}},
  *    {type: "spacing"}
  *   ],
